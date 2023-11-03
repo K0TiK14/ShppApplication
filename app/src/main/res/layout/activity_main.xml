@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/custom_white"
+    tools:context=".MainActivity">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="-53dp"
+        android:background="@color/dark_blue"
+        app:layout_constraintBottom_toBottomOf="@+id/homeAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView"
+        style="@style/whiteH1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:text="@string/setting"
+        app:layout_constraintBottom_toBottomOf="@+id/logOutButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/logOutButton" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logOutButton"
+        style="@style/greyH3"
+        android:layout_width="119dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="17dp"
+        android:background="@drawable/button_border_gray"
+        android:text="@string/log_out"
+        android:textAllCaps="false"
+        android:textColor="@drawable/text_color_gray_to_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="113dp"
+        android:layout_height="113dp"
+        android:background="@drawable/person_icon"
+        app:cardCornerRadius="360dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
+<!--
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+    -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/personIcon"
+        android:layout_width="113dp"
+        android:layout_height="113dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/person_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logOutButton" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/name"
+        style="@style/whiteH2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/personIcon" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/career"
+        style="@style/greyH3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/career"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/homeAddress"
+        style="@style/greyH3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/home_address"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/career" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/socIon1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/soc_icon_circle"
+        app:layout_constraintEnd_toStartOf="@+id/socIon2"
+        app:layout_constraintTop_toTopOf="@+id/socIon2" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/socIon2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/soc_icon_circle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/socIon3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/soc_icon_circle"
+        app:layout_constraintStart_toEndOf="@+id/socIon2"
+        app:layout_constraintTop_toTopOf="@+id/socIon2" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="socIon1, socIon2, socIon3" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/greyH3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="@string/go_to_settings"
+        android:textColor="@color/dark_blue"
+        app:layout_constraintBottom_toTopOf="@+id/editProfileButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/editProfileButton"
+        style="@style/baseTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_border_dark_blue"
+        android:text="@string/edit_profile"
+        android:textColor="@drawable/text_color_dark_blue_to_white"
+        app:layout_constraintBottom_toTopOf="@id/button_view_my_contacts"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_view_my_contacts"
+        style="@style/buttonTextBig"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_big"
+        android:layout_marginStart="@dimen/default_margin"
+        android:layout_marginEnd="@dimen/default_margin"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:background="@drawable/button_solid_orange"
+        android:text="@string/view_my_contacts"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

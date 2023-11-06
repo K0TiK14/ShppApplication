@@ -10,13 +10,13 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ShppApplication"
+        android:theme="@style/ShppApplication"
         tools:targetApi="31" >
         <activity
-            android:name=".Login"
+            android:name=".LogIn"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MyProfile"
             android:exported="false" />
         <activity
             android:name=".SignUp"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_blue"
-    tools:context=".Login">
+    tools:context=".LogIn">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/leftGuideline"
@@ -51,7 +51,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_lets_get_acquainted"
-        style="@style/whiteH1"
+        style="@style/h1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -60,7 +60,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_fill_out_the_profile"
-        style="@style/whiteH4"
+        style="@style/h4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -68,14 +68,14 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/flow_editText_email"
+        android:id="@+id/textInputLayout_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:orientation="vertical"
         app:constraint_referenced_ids="
         text_email,
-        editText_email"
+        textInputLayout_email"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@id/flow_letsGetAcquainted" />
@@ -91,7 +91,7 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/editText_email"
+        android:id="@+id/textInputLayout_email"
         android:layout_width="0dp"
         android:layout_height="@dimen/edit_text_height"
         android:background="@drawable/edit_text_line"
@@ -109,10 +109,10 @@
         android:orientation="vertical"
         app:constraint_referenced_ids="
         text_password,
-        editText_password"
+        textInputLayout_password"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/flow_editText_email" />
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout_email" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_password"
@@ -125,7 +125,7 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/editText_password"
+        android:id="@+id/textInputLayout_password"
         android:layout_width="0dp"
         android:layout_height="@dimen/edit_text_height"
         android:background="@drawable/edit_text_line"
@@ -142,45 +142,25 @@
         android:layout_marginTop="@dimen/default_margin"
         android:orientation="horizontal"
         app:constraint_referenced_ids="
-        flow_rememberMe_checkBox,
+        checkBox,
         text_forgot_your_password"
         app:flow_horizontalStyle="spread_inside"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@id/flow_editText_password" />
 
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/flow_rememberMe_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:constraint_referenced_ids="
-        checkBox,
-        text_remember_me"
-        app:flow_horizontalGap="8dp"
-        tools:ignore="MissingConstraints" />
-
-    <View
+    <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/checkBox"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:background="@drawable/custom_checkbox"
-        android:clickable="true"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck,SpeakableTextPresentCheck"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="386dp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_remember_me"
-        style="@style/greyH3"
+        style="@style/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/default_margin"
         android:text="@string/remember_me"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints,RtlSymmetry,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_forgot_your_password"
-        style="@style/whiteH3"
+        style="@style/h3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/forgot_your_password"
@@ -222,7 +202,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_sign_up"
-        style="@style/whiteH3"
+        style="@style/h3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"

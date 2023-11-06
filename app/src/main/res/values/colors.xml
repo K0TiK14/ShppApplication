@@ -7,5 +7,6 @@
     <color name="custom_gray">#B2B2B3</color>
     <color name="custom_orange">#FB5E06</color>
     <color name="custom_darkish_orange">#F45703</color>
+    <color name="custom_red">#F93E3E</color>
     <color name="custom_gray_2">#BDBDBD</color>
 </resources>

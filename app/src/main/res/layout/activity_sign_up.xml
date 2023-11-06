@@ -51,7 +51,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_lets_get_acquainted"
-        style="@style/whiteH1"
+        style="@style/h1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -60,156 +60,63 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_fill_out_the_profile"
-        style="@style/whiteH4"
+        style="@style/h4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/fill_out_the_profile"
         tools:ignore="MissingConstraints" />
 
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/flow_editText_email"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_email"
+        style="@style/myFilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:orientation="vertical"
-        app:constraint_referenced_ids="
-        text_email,
-        editText_email"
+        android:hint="@string/email"
+        app:helperText="12345g "
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/flow_letsGetAcquainted" />
+        app:layout_constraintTop_toBottomOf="@id/flow_letsGetAcquainted">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_email"
-        style="@style/greyH3"
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/custom_TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout_password"
+        style="@style/myFilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="8dp"
-        android:text="@string/email"
-        android:textColor="@color/custom_gray_2"
-        tools:ignore="MissingConstraints" />
-
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/editText_email"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/edit_text_height"
-        android:background="@drawable/edit_text_line"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/custom_white"
-        tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/flow_editText_password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical"
-        app:constraint_referenced_ids="
-        text_password,
-        editText_password"
+        android:layout_marginTop="4dp"
+        android:hint="@string/password"
+        app:helperText="12345g "
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/flow_editText_email" />
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout_email">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_password"
-        style="@style/greyH3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="8dp"
-        android:text="@string/password"
-        android:textColor="@color/custom_gray_2"
-        tools:ignore="MissingConstraints" />
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/custom_TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/editText_password"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/edit_text_height"
-        android:background="@drawable/edit_text_line"
-        android:inputType="textPassword"
-        android:textColor="@color/custom_white"
-        tools:ignore="MissingConstraints,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/flow_rememberMe_checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/default_margin"
-        android:orientation="horizontal"
-        app:constraint_referenced_ids="
-        checkBox,
-        text_remember_me"
-        app:flow_horizontalGap="8dp"
-        app:layout_constraintStart_toStartOf="@id/leftGuideline"
-        app:layout_constraintTop_toBottomOf="@id/flow_editText_password" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/checkBox"
+        style="@style/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:button="@drawable/custom_checkbox"
-        android:checked="true"
-        android:text="12345"
-        android:textColor="@color/custom_orange"
-        tools:ignore="MissingConstraints,TouchTargetSizeCheck,SpeakableTextPresentCheck"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="385dp" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/text_remember_me"
-        style="@style/greyH3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
         android:text="@string/remember_me"
-        tools:ignore="MissingConstraints" />
-
-<androidx.appcompat.widget.AppCompatCheckBox
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:button="@drawable/custom_checkbox"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"/>
-
-    <!--
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout_login_password"
-        style="@style/textInputLayout_LoginPassword"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/auth_layout_password_hint"
-        android:paddingTop="@dimen/offset_S"
-        android:layout_marginBottom="@dimen/default_margin"
-        android:textColorHint="?attr/colorOnTertiary"
-        android:textCursorDrawable="@null"
-        app:colorControlActivated="?attr/colorOnTertiary"
-        app:colorControlHighlight="?attr/colorOnTertiary"
-        app:colorControlNormal="?attr/colorOnTertiary"
-        app:counterEnabled="true"
-        app:counterMaxLength="@integer/count_loginFragment_passwordMaxLength"
-        app:counterTextColor="?attr/colorTertiary"
-        app:helperTextTextColor="?attr/colorError"
-        app:hintTextAppearance="@style/textInputLayout_hintSize"
-        app:passwordToggleEnabled="true"
-        app:passwordToggleTint="?attr/colorTertiary"
-        app:layout_constraintBottom_toTopOf="@id/button_google"
-        app:layout_constraintEnd_toEndOf="@id/rightGuideline"
-        app:layout_constraintStart_toStartOf="@id/leftGuideline" >
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInput_login_passwordField"
-            style="@style/textInputLayout_basicTextInput"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textCursorDrawable="@null"
-            tools:ignore="VisualLintTextFieldSize" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-    -->
-
-
+        app:layout_constraintStart_toStartOf="@id/leftGuideline"
+        app:layout_constraintTop_toBottomOf="@id/textInputLayout_password"
+        tools:ignore="RtlSymmetry,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/button_google"
@@ -219,6 +126,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/button_google"
         android:clickable="true"
+        android:focusable="true"
         android:orientation="horizontal"
         android:text="@string/google"
         android:textColor="#18181F"
@@ -249,7 +157,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_or"
-        style="@style/whiteH2"
+        style="@style/h2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -272,7 +180,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_by_clicking_register"
-        style="@style/whiteH4"
+        style="@style/h4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -305,11 +213,10 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_sign_up"
-        style="@style/whiteH3"
+        style="@style/h3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_in"
         tools:ignore="MissingConstraints" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

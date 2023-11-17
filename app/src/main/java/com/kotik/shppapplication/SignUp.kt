@@ -1,10 +1,12 @@
 package com.kotik.shppapplication
 
+import android.accessibilityservice.AccessibilityService.ScreenshotResult
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.provider.MediaStore.Video
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -42,7 +44,7 @@ class SignUp : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 // Нічого не робимо
                 Log.d(TAG, "qwerty3")
-                procTransformation(s)
+                //procTransformation(s)
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -62,23 +64,6 @@ class SignUp : AppCompatActivity() {
                 binding.textInputEditTextPassword.text =
                     Editable.Factory.getInstance().newEditable(transformedText)
                 binding.textInputEditTextPassword.setSelection(transformedText.length)
-//                if (transformedText != "") {
-//                    binding.textInputEditTextPassword.setPadding(
-//                        0,
-//                        MyHelp.toPx(applicationContext, 41),
-//                        0,
-//                        MyHelp.toPx(applicationContext, 8)
-//                    )
-//                } else {
-//                    binding.textInputEditTextPassword.setPadding(
-//                        MyHelp.toPx(applicationContext, 8),
-//                        0,
-//                        0,
-//                        0
-//                    )
-//                }
-                binding.textInputEditTextPassword.height = 200
-                binding.textInputEditTextPassword.setPadding(0,140,0,0)
                 binding.textInputEditTextPassword.addTextChangedListener(this)
             }
         })
@@ -99,7 +84,6 @@ class SignUp : AppCompatActivity() {
         binding.buttonRegister.setOnClickListener {
             procClickRegisterButton()
         }
-
     }
 
     private fun procAutoLogin() {
@@ -245,14 +229,16 @@ class SignUp : AppCompatActivity() {
         binding.textInputLayoutPassword.helperText = passwordErrorMessage
 
         if (emailErrorMessage == null && passwordErrorMessage == null) {
-//            intent.putExtra("email", binding.textInputEditTextEmail.text?.toString())
-//            intent.putExtra("password", binding.textInputEditTextPassword.text?.toString())
+            intent.putExtra("email", binding.textInputEditTextEmail.text?.toString())
+            intent.putExtra("password", binding.textInputEditTextPassword.text?.toString())
 
-            val sharedPreferences = getSharedPreferences("AutoLogin", Context.MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
-            editor.putString("Email", binding.textInputEditTextEmail.text?.toString())
-            editor.putString("Password", binding.textInputEditTextPassword.text?.toString())
-            editor.apply()
+            if (binding.checkBox.isChecked) {
+                val sharedPreferences = getSharedPreferences("AutoLogin", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("Email", binding.textInputEditTextEmail.text?.toString())
+                editor.putString("Password", binding.textInputEditTextPassword.text?.toString())
+                editor.apply()
+            }
 
             startActivity(intent)
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)

@@ -6,4 +6,6 @@
     <dimen name="edit_text_height">40dp</dimen>
     <dimen name="button_height_big">55dp</dimen>
     <dimen name="button_height_default">40dp</dimen>
+    <dimen name="password_transform_img_width">14dp</dimen>
+    <dimen name="password_transform_img_height">31dp</dimen>
 </resources>

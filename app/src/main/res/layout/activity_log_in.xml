@@ -75,14 +75,14 @@
         android:orientation="vertical"
         app:constraint_referenced_ids="
         text_email,
-        textInputLayout_email"
+        textInputLayout_email5"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@id/flow_letsGetAcquainted" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_email"
-        style="@style/greyH3"
+        style="@style/h3.gray"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
@@ -91,7 +91,7 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/textInputLayout_email"
+        android:id="@+id/textInputLayout_email5"
         android:layout_width="0dp"
         android:layout_height="@dimen/edit_text_height"
         android:background="@drawable/edit_text_line"
@@ -116,7 +116,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_password"
-        style="@style/greyH3"
+        style="@style/h3.gray"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingHorizontal="8dp"
@@ -167,7 +167,7 @@
         tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_view_my_contacts"
+        android:id="@+id/button_register"
         style="@style/buttonTextBig"
         android:layout_width="0dp"
         android:layout_height="@dimen/button_height_big"
@@ -194,7 +194,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_already_have_account"
-        style="@style/greyH3"
+        style="@style/h3.gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dont_have_account"

@@ -69,17 +69,17 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_email"
-        style="@style/myFilledBox"
+        style="@style/customFilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:hint="@string/email"
-        app:helperText="12345g "
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@id/flow_letsGetAcquainted">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText_email"
             style="@style/custom_TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,21 +89,23 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout_password"
-        style="@style/myFilledBox"
+        style="@style/customFilledBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="24dp"
         android:hint="@string/password"
-        app:helperText="12345g "
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline"
         app:layout_constraintTop_toBottomOf="@id/textInputLayout_email">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textInputEditText_password"
             style="@style/custom_TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -162,12 +164,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="@string/or"
-        app:layout_constraintBottom_toTopOf="@id/button_view_my_contacts"
+        app:layout_constraintBottom_toTopOf="@id/button_register"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"
         app:layout_constraintStart_toStartOf="@id/leftGuideline" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_view_my_contacts"
+        android:id="@+id/button_register"
         style="@style/buttonTextBig"
         android:layout_width="0dp"
         android:layout_height="@dimen/button_height_big"
@@ -205,7 +207,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/text_already_have_account"
-        style="@style/greyH3"
+        style="@style/h3.gray"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/already_have_account"

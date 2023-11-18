@@ -1,19 +1,20 @@
 package com.kotik.shppapplication
 
-import android.accessibilityservice.AccessibilityService.ScreenshotResult
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.provider.MediaStore.Video
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.google.android.material.textfield.TextInputEditText
 import com.kotik.shppapplication.databinding.ActivitySignUpBinding
-import com.kotik.shppapplication.utils.MyHelp
+import com.kotik.shppapplication.utils.CustomWatcher
 import com.kotik.shppapplication.utils.PasswordTransformation
+import com.kotik.shppapplication.utils.changeTextToDots
+import com.kotik.shppapplication.utils.log
 
 
 private const val MIN_EMAIL_LEN = 8
@@ -28,6 +29,7 @@ class SignUp : AppCompatActivity() {
     private var wasEmailFocused = false
     private var wasPasswordFocused = false
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
@@ -36,63 +38,62 @@ class SignUp : AppCompatActivity() {
         procAutoLogin()
 
 
-        val passwordTransformation = PasswordTransformation(applicationContext)
-        Log.d(TAG, "qwerty1")
-        binding.textInputEditTextPassword.transformationMethod = passwordTransformation
-        Log.d(TAG, "qwerty2")
-        binding.textInputEditTextPassword.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                // Нічого не робимо
-                Log.d(TAG, "qwerty3")
-                //procTransformation(s)
-            }
+        log("get img") // Set an image drawable for the password transformation
+        val imageDrawable: Drawable? = ContextCompat.getDrawable(
+            this,
+            R.drawable.password_transformation_img
+        )
+        val passImgW = 14f //resources.getDimension(R.dimen.password_transform_img_width)
+        val passImgH = 31f // resources.getDimension(R.dimen.password_transform_img_height)
+        log("create TM") // Create the custom transformation method
+        val customTransformationMethod = PasswordTransformation(
+            imageDrawable,
+            resources.displayMetrics,
+            passImgW,
+            passImgH
+        )
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // Опрацьовуємо текст при зміні
-                procTransformation(s)
-                Log.d(TAG, "qwerty4")
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                // Нічого не робимо
-                Log.d(TAG, "qwerty5")
-            }
-
-            private fun procTransformation(s: CharSequence?) {
-                val transformedText = passwordTransformation.getTransformation(s, null)
-                binding.textInputEditTextPassword.removeTextChangedListener(this)
-                binding.textInputEditTextPassword.text =
-                    Editable.Factory.getInstance().newEditable(transformedText)
-                binding.textInputEditTextPassword.setSelection(transformedText.length)
-                binding.textInputEditTextPassword.addTextChangedListener(this)
-            }
-        })
+        log("set TM to EditText")
+        binding.textInputEditTextPassword.transformationMethod = customTransformationMethod
+        binding.textInputEditTextPassword.changeTextToDots()
 
 
-        binding.textInputEditTextEmail.setOnFocusChangeListener { _, _ ->
-            procEmailError()
-        }
-        binding.textInputEditTextPassword.setOnFocusChangeListener { _, _ ->
-            procPasswordError()
-        }
-
-        //Використовуйте бібліотеки, такі як "RxKeyboard" або "KeyboardVisibilityEvent"
-        window.decorView.rootView.viewTreeObserver.addOnGlobalLayoutListener {
-            handleKeyboardState()
-        }
-
-        binding.buttonRegister.setOnClickListener {
-            procClickRegisterButton()
-        }
+        //        binding.textInputEditTextEmail.setOnFocusChangeListener { _, _ ->
+        //            procEmailError()
+        //        }
+        //        binding.textInputEditTextPassword.setOnFocusChangeListener { _, _ ->
+        //            procPasswordError()
+        //        }
+        //
+        //        //Використовуйте бібліотеки, такі як "RxKeyboard" або "KeyboardVisibilityEvent"
+        //        window.decorView.rootView.viewTreeObserver.addOnGlobalLayoutListener {
+        //            handleKeyboardState()
+        //        }
+        //
+        //        binding.buttonRegister.setOnClickListener {
+        //            procClickRegisterButton()
+        //        }
     }
 
     private fun procAutoLogin() {
-        val sharedPreferences = getSharedPreferences("AutoLogin", MODE_PRIVATE)
-        val email = sharedPreferences.getString("Email", null)
-        val password = sharedPreferences.getString("Password", null)
+        val sharedPreferences = getSharedPreferences(
+            "AutoLogin",
+            MODE_PRIVATE
+        )
+        val email = sharedPreferences.getString(
+            "Email",
+            null
+        )
+        val password = sharedPreferences.getString(
+            "Password",
+            null
+        )
 
         if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
-            val intent = Intent(this, MyProfile::class.java)
+            val intent = Intent(
+                this,
+                MyProfile::class.java
+            )
             startActivity(intent)
         }
     }
@@ -163,7 +164,11 @@ class SignUp : AppCompatActivity() {
             if (char == ' ') hasSpace = true
         }
 
-        return booleanArrayOf(hasDot, hasEmailSymbol, hasSpace)
+        return booleanArrayOf(
+            hasDot,
+            hasEmailSymbol,
+            hasSpace
+        )
     }
 
     private fun hasPasswordAllSymbols(s: String): BooleanArray {
@@ -181,7 +186,13 @@ class SignUp : AppCompatActivity() {
             if (char == ' ') hasSpace = true
         }
 
-        return booleanArrayOf(hasDigit, hasLetter, hasUpperCase, hasLowerCase, hasSpace)
+        return booleanArrayOf(
+            hasDigit,
+            hasLetter,
+            hasUpperCase,
+            hasLowerCase,
+            hasSpace
+        )
     }
 
     private fun handleKeyboardState() {
@@ -218,7 +229,10 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun procClickRegisterButton() {
-        val intent = Intent(this, MyProfile::class.java)
+        val intent = Intent(
+            this,
+            MyProfile::class.java
+        )
 
         val emailErrorMessage =
             getEmailErrorMessage(binding.textInputEditTextEmail.text?.toString())
@@ -229,19 +243,37 @@ class SignUp : AppCompatActivity() {
         binding.textInputLayoutPassword.helperText = passwordErrorMessage
 
         if (emailErrorMessage == null && passwordErrorMessage == null) {
-            intent.putExtra("email", binding.textInputEditTextEmail.text?.toString())
-            intent.putExtra("password", binding.textInputEditTextPassword.text?.toString())
+            intent.putExtra(
+                "email",
+                binding.textInputEditTextEmail.text?.toString()
+            )
+            intent.putExtra(
+                "password",
+                binding.textInputEditTextPassword.text?.toString()
+            )
 
             if (binding.checkBox.isChecked) {
-                val sharedPreferences = getSharedPreferences("AutoLogin", Context.MODE_PRIVATE)
+                val sharedPreferences = getSharedPreferences(
+                    "AutoLogin",
+                    Context.MODE_PRIVATE
+                )
                 val editor = sharedPreferences.edit()
-                editor.putString("Email", binding.textInputEditTextEmail.text?.toString())
-                editor.putString("Password", binding.textInputEditTextPassword.text?.toString())
+                editor.putString(
+                    "Email",
+                    binding.textInputEditTextEmail.text?.toString()
+                )
+                editor.putString(
+                    "Password",
+                    binding.textInputEditTextPassword.text?.toString()
+                )
                 editor.apply()
             }
 
             startActivity(intent)
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            overridePendingTransition(
+                R.anim.fade_in,
+                R.anim.fade_out
+            )
         }
     }
 }

@@ -1,81 +1,96 @@
 package com.kotik.shppapplication.utils
 
-import android.text.method.PasswordTransformationMethod
+import android.graphics.Rect
+import android.graphics.drawable.Drawable
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.method.TransformationMethod
+import android.text.style.ImageSpan
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 
-//class PasswordTransformation(private val context: Context) : PasswordTransformationMethod {
-//    override fun getTransformation(source: CharSequence?, view: View?): CharSequence {
-//        //return source?.let { replaceWithIcons(it) } ?: ""
-//        return PasswordCharSequence(source)
-//    }
-//
-//    private fun replaceWithIcons(text: CharSequence): CharSequence {
-//        val spannableString = SpannableString(text)
-//
-//        for (i in text.indices) {
-//            val drawable = ContextCompat.getDrawable(context, R.drawable.password_transformation_img)
-//
-//            if (drawable != null) {
-//                val displayMetrics = context.resources.displayMetrics
-//                val imageWidth = MyHelp.toPx(displayMetrics, context.resources.getDimension(R.dimen.password_transform_img_width))
-//                val imageHeight = MyHelp.toPx(displayMetrics, context.resources.getDimension(R.dimen.password_transform_img_height))
-//                drawable.setBounds(0, 0, imageWidth, imageHeight)
-//
-//                val imageSpan = ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM)
-//                spannableString.setSpan(imageSpan, i, i + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-//            }
-//        }
-//        Log.d("MYLOG", "qwerty11")
-//        return spannableString
-//    }
-//
-//    override fun onFocusChanged(
-//        view: View?,
-//        sourceText: CharSequence?,
-//        focused: Boolean,
-//        direction: Int,
-//        previouslyFocusedRect: Rect?
-//    ) {
-//        // Опрацьовуйте подію фокусу, якщо потрібно
-//        Log.d("MYLOG", "qwerty12")
-//    }
-//}
-//
-//class PasswordCharSequence(source: CharSequence?) : CharSequence {
-//    private lateinit var mSource: CharSequence?
-//    init {
-//        mSource = source
-//    }
-//
-//    public fun charAt(index: Int): Char {
-//        return '*'; // This is the important part
-//    }
-//    public fun length(): Int {
-//        return mSource?.length ?: 0; // Return default
-//    }
-//    public fun subSequence(start:Int, end:Int): CharSequence {
-//        return mSource?.subSequence(start, end)?: "" // Return default
-//    }
-//}
-//}
-class AsteriskPasswordTransformationMethod : PasswordTransformationMethod() {
+class PasswordTransformation(
+    private val drawableImg: Drawable?,
+    displayMetrics: DisplayMetrics,
+    passImgW: Float,
+    passImgH: Float,
+) : TransformationMethod {
+
+    init {
+        val imageWidth = MyHelp.toPx(
+            displayMetrics,
+            passImgW
+        )
+        val imageHeight = MyHelp.toPx(
+            displayMetrics,
+            passImgH
+        )
+
+        drawableImg?.setBounds(
+            0,
+            0,
+            imageWidth,
+            imageHeight
+        )
+    }
+
     override fun getTransformation(source: CharSequence?, view: View?): CharSequence {
-        return PasswordCharSequence(source)
+        log("getTransformation")
+        return replaceWithIcons(source ?: "")
     }
 
-    private inner class PasswordCharSequence    // Store char sequence
-        (private val mSource: CharSequence?) :
-        CharSequence {
-        override fun charAt(index: Int): Char {
-            return '*' // This is the important part
+    private fun replaceWithIcons(text: CharSequence): CharSequence {
+        log("replaceWithIcons")
+
+        var spannableString: SpannableString? = null
+
+        try {
+            if (text.isNotEmpty()) {
+                log("text is [$text] with length (${text.length})")
+                spannableString = SpannableString(text)
+            }
+        }
+        catch (e: StringIndexOutOfBoundsException) {
+            log("HA-HA!!!", true)
+            Log.e("myLog", "HA-HA!!!", e)
         }
 
-        override fun length(): Int {
-            return mSource.length // Return default
+        log("create spannableString")
+        log("text = [${text}] with indexes ${text.indices}")
+        if (drawableImg != null && spannableString != null) {
+
+            for (i in text.indices) {
+                log("replaceWithIconsEnd i = $i")
+
+                val imageSpan = ImageSpan(
+                    drawableImg,
+                    ImageSpan.ALIGN_BOTTOM
+                )
+
+                spannableString.setSpan(
+                    imageSpan,
+                    i,
+                    i + 1,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
+
+            }
+            log("replaceWithIconsEnd -> ${spannableString.length}")
         }
 
-        override fun subSequence(start: Int, end: Int): CharSequence {
-            return mSource.subSequence(start, end) // Return default
-        }
+        return spannableString ?: ""
     }
-};
+
+    override fun onFocusChanged(
+        view: View?,
+        sourceText: CharSequence?,
+        focused: Boolean,
+        direction: Int,
+        previouslyFocusedRect: Rect?
+    ) {
+        log("onFocusChanged")
+        // Опрацьовуйте подію фокусу, якщо потрібно
+    }
+}

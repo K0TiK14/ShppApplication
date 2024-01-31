@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_blue"
+    android:background="@color/mainColor"
     tools:context=".SignUp">
 
     <androidx.constraintlayout.widget.Guideline
@@ -120,16 +120,14 @@
 
     <androidx.constraintlayout.helper.widget.Flow
         android:id="@+id/button_google"
-        style="@style/buttonTextBig"
+        style="@style/buttonGoogle"
         android:layout_width="0dp"
         android:layout_height="@dimen/button_height_default"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/button_google"
         android:clickable="true"
         android:focusable="true"
         android:orientation="horizontal"
         android:text="@string/google"
-        android:textColor="#18181F"
         app:constraint_referenced_ids="
         google_icon,
         text_google"
@@ -172,7 +170,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/button_height_big"
         android:layout_marginBottom="@dimen/default_margin"
-        android:background="@drawable/button_border_orange"
+        android:background="@drawable/button_solid_orange"
         android:text="@string/register"
         app:layout_constraintBottom_toTopOf="@id/text_by_clicking_register"
         app:layout_constraintEnd_toEndOf="@id/rightGuideline"

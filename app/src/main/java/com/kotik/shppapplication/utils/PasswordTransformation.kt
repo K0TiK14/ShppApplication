@@ -2,85 +2,53 @@ package com.kotik.shppapplication.utils
 
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
+import android.text.Editable
 import android.text.Spannable
-import android.text.SpannableString
+import android.text.SpannableStringBuilder
 import android.text.method.TransformationMethod
 import android.text.style.ImageSpan
-import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 
-class PasswordTransformation(
-    private val drawableImg: Drawable?,
-    displayMetrics: DisplayMetrics,
-    passImgW: Float,
-    passImgH: Float,
-) : TransformationMethod {
+class PasswordTransformation(imgForPassword: MyImg) : TransformationMethod {
+
+    private val drawableImg: Drawable? = imgForPassword.getImageDrawable()
+    private val imageWidth = imgForPassword.getPassImgW().toInt()
+    private val imageHeight = imgForPassword.getPassImgH().toInt()
 
     init {
-        val imageWidth = MyHelp.toPx(
-            displayMetrics,
-            passImgW
-        )
-        val imageHeight = MyHelp.toPx(
-            displayMetrics,
-            passImgH
-        )
-
-        drawableImg?.setBounds(
-            0,
-            0,
-            imageWidth,
-            imageHeight
-        )
+        log("init")
+        drawableImg?.setBounds(0, 0, imageWidth, imageHeight)
     }
 
     override fun getTransformation(source: CharSequence?, view: View?): CharSequence {
         log("getTransformation")
-        return replaceWithIcons(source ?: "")
+        return source?.let { transformLastChar(it) } ?: ""
     }
 
-    private fun replaceWithIcons(text: CharSequence): CharSequence {
-        log("replaceWithIcons")
+    private fun transformLastChar(text: CharSequence): CharSequence {
+        log("# transformLastChar - start")
+        val editable = Editable.Factory.getInstance().newEditable(text)
+        val lastCharIndex = editable.length - 1
 
-        var spannableString: SpannableString? = null
-
-        try {
-            if (text.isNotEmpty()) {
-                log("text is [$text] with length (${text.length})")
-                spannableString = SpannableString(text)
-            }
+        if (lastCharIndex >= 0) {
+            val lastChar = editable[lastCharIndex].toString()
+            val transformedText = replaceWithIcon(lastChar)
+            editable.replace(lastCharIndex, lastCharIndex + 1, transformedText)
         }
-        catch (e: StringIndexOutOfBoundsException) {
-            log("HA-HA!!!", true)
-            Log.e("myLog", "HA-HA!!!", e)
+        log("# transformLastChar - end")
+        return editable
+    }
+
+    private fun replaceWithIcon(text: CharSequence): CharSequence {
+        log(text.toString())
+        val spannableStringBuilder = SpannableStringBuilder()
+
+        if (drawableImg != null) {
+
+            val imageSpan = ImageSpan(drawableImg, ImageSpan.ALIGN_BOTTOM)
+            spannableStringBuilder.append(text, imageSpan, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
-
-        log("create spannableString")
-        log("text = [${text}] with indexes ${text.indices}")
-        if (drawableImg != null && spannableString != null) {
-
-            for (i in text.indices) {
-                log("replaceWithIconsEnd i = $i")
-
-                val imageSpan = ImageSpan(
-                    drawableImg,
-                    ImageSpan.ALIGN_BOTTOM
-                )
-
-                spannableString.setSpan(
-                    imageSpan,
-                    i,
-                    i + 1,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-
-
-            }
-            log("replaceWithIconsEnd -> ${spannableString.length}")
-        }
-
-        return spannableString ?: ""
+        return spannableStringBuilder
     }
 
     override fun onFocusChanged(
@@ -90,7 +58,6 @@ class PasswordTransformation(
         direction: Int,
         previouslyFocusedRect: Rect?
     ) {
-        log("onFocusChanged")
-        // Опрацьовуйте подію фокусу, якщо потрібно
+        // Handle focus change event if needed
     }
 }

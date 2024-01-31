@@ -2,13 +2,14 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape>
-            <solid android:color="@color/inverseMainColor" />
+            <solid android:color="@color/customWhiteDarkish" />
+            <stroke android:color="@color/red" />
             <corners android:radius="@dimen/default_button_radius" />
         </shape>
     </item>
     <item>
         <shape>
-            <stroke android:width="@dimen/default_button_border" android:color="@color/inverseMainColor" />
+            <solid android:color="@color/customWhite" />
             <corners android:radius="@dimen/default_button_radius" />
         </shape>
     </item>

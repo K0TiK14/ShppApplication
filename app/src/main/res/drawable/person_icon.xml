@@ -6,7 +6,7 @@
 
     <clip-path android:pathData="M256,256 m0,-256 a256,256 0 1,0 0,512 a256,256 0 1,0 0,-512" />
     <path
-        android:fillColor="@color/custom_gray"
+        android:fillColor="@color/textColor1"
         android:pathData="M256,0A256,256 0 1,1 255.0,0" />
     <path
         android:fillColor="#0C4472"

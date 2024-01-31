@@ -5,13 +5,10 @@ import android.content.Intent
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.google.android.material.textfield.TextInputEditText
 import com.kotik.shppapplication.databinding.ActivitySignUpBinding
-import com.kotik.shppapplication.utils.CustomWatcher
+import com.kotik.shppapplication.utils.MyImg
 import com.kotik.shppapplication.utils.PasswordTransformation
 import com.kotik.shppapplication.utils.changeTextToDots
 import com.kotik.shppapplication.utils.log
@@ -35,69 +32,60 @@ class SignUp : AppCompatActivity() {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        procAutoLogin()
 
+        if (procAutoLogin()) return
+        procListeners()
+        procPasswordTransformation()
+    }
 
-        log("get img") // Set an image drawable for the password transformation
-        val imageDrawable: Drawable? = ContextCompat.getDrawable(
-            this,
-            R.drawable.password_transformation_img
-        )
-        val passImgW = 14f //resources.getDimension(R.dimen.password_transform_img_width)
-        val passImgH = 31f // resources.getDimension(R.dimen.password_transform_img_height)
-        log("create TM") // Create the custom transformation method
-        val customTransformationMethod = PasswordTransformation(
-            imageDrawable,
-            resources.displayMetrics,
-            passImgW,
-            passImgH
-        )
+    private fun procListeners() {
+        binding.textInputEditTextEmail.setOnFocusChangeListener { _, _ -> procEmailError() }
+        binding.textInputEditTextPassword.setOnFocusChangeListener { _, _ -> procPasswordError() }
+
+        //Використовуйте бібліотеки, такі як "RxKeyboard" або "KeyboardVisibilityEvent"
+        window.decorView.rootView.viewTreeObserver.addOnGlobalLayoutListener {
+            handleKeyboardState()
+        }
+
+        binding.buttonRegister.setOnClickListener {
+            procClickRegisterButton()
+        }
+    }
+
+    private fun procPasswordTransformation() {
+        log("create TM")
+        val customTransformationMethod = PasswordTransformation(getImgForPassword())
 
         log("set TM to EditText")
         binding.textInputEditTextPassword.transformationMethod = customTransformationMethod
         binding.textInputEditTextPassword.changeTextToDots()
-
-
-        //        binding.textInputEditTextEmail.setOnFocusChangeListener { _, _ ->
-        //            procEmailError()
-        //        }
-        //        binding.textInputEditTextPassword.setOnFocusChangeListener { _, _ ->
-        //            procPasswordError()
-        //        }
-        //
-        //        //Використовуйте бібліотеки, такі як "RxKeyboard" або "KeyboardVisibilityEvent"
-        //        window.decorView.rootView.viewTreeObserver.addOnGlobalLayoutListener {
-        //            handleKeyboardState()
-        //        }
-        //
-        //        binding.buttonRegister.setOnClickListener {
-        //            procClickRegisterButton()
-        //        }
     }
 
-    private fun procAutoLogin() {
-        val sharedPreferences = getSharedPreferences(
-            "AutoLogin",
-            MODE_PRIVATE
+    private fun getImgForPassword(): MyImg {
+        log("get img")
+        val imageDrawable: Drawable? = ContextCompat.getDrawable(
+            this,
+            R.drawable.password_transformation_img
         )
-        val email = sharedPreferences.getString(
-            "Email",
-            null
-        )
-        val password = sharedPreferences.getString(
-            "Password",
-            null
-        )
+        val passImgW = resources.getDimension(R.dimen.password_transform_img_width)
+        val passImgH = resources.getDimension(R.dimen.password_transform_img_height)
+        return MyImg(imageDrawable, passImgW, passImgH)
+    }
+
+    private fun procAutoLogin(): Boolean {
+        val sharedPreferences = getSharedPreferences("AutoLogin", MODE_PRIVATE)
+        val email = sharedPreferences.getString("Email", null)
+        val password = sharedPreferences.getString("Password", null)
 
         if (!email.isNullOrEmpty() && !password.isNullOrEmpty()) {
-            val intent = Intent(
-                this,
-                MyProfile::class.java
-            )
+            val intent = Intent(this, MyProfile::class.java)
             startActivity(intent)
+            finish()
+            return true
         }
-    }
 
+        return false
+    }
 
     private fun procEmailError() {
         binding.textInputEditTextEmail.setText(
@@ -111,10 +99,6 @@ class SignUp : AppCompatActivity() {
     }
 
     private fun procPasswordError() {
-        binding.textInputEditTextPassword.setText(
-            binding.textInputEditTextPassword.text.toString().trim()
-        )
-
         if (wasPasswordFocused) binding.textInputLayoutPassword.helperText =
             getPasswordErrorMessage(binding.textInputEditTextPassword.text?.toString())
 

@@ -2,14 +2,14 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_pressed="true">
         <shape>
-            <stroke android:width="@dimen/default_button_border" android:color="@color/custom_orange" />
-            <solid android:color="@color/custom_orange"/>
+            <stroke android:width="@dimen/default_button_border" android:color="@color/customOrange" />
+            <solid android:color="@color/customOrange"/>
             <corners android:radius="@dimen/default_button_radius" />
         </shape>
     </item>
     <item>
         <shape>
-            <stroke android:width="@dimen/default_button_border" android:color="@color/custom_orange" />
+            <stroke android:width="@dimen/default_button_border" android:color="@color/customOrange" />
             <corners android:radius="@dimen/default_button_radius" />
         </shape>
     </item>

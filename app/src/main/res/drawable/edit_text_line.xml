@@ -7,5 +7,5 @@
 
     <path
         android:pathData="M0,39 L40,39"
-        android:strokeColor="@color/custom_gray_2"/>
+        android:strokeColor="@color/textColor1"/>
 </vector>
